@@ -4,7 +4,7 @@ from telegram.ext import ApplicationBuilder, MessageHandler, CommandHandler, Con
 TOKEN = '7360314470:AAE2kFtkVdYyCLZrUhbGsrVYV6SDSRtGsrg'
 
 # فقط این افراد مجازن استفاده کنن
-ALLOWED_USERS = [56271843180, 680132542, 5959049408]
+ALLOWED_USERS = [56271843180, 680132542, 5959049408, 1942111839]
 ADMIN_ID = 1942111839  # پیام‌ها به این آیدی فوروارد می‌شن
 
 user_messages = {}  # برای ذخیره کردن آیدی کاربر و آیدی پیام فوروارد شده
