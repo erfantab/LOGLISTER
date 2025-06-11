@@ -2,11 +2,18 @@ from telegram import Update, Message
 from telegram.ext import ApplicationBuilder, MessageHandler, CommandHandler, ContextTypes, filters
 
 TOKEN = '7360314470:AAE2kFtkVdYyCLZrUhbGsrVYV6SDSRtGsrg'
-ADMIN_ID = 1942111839  # آیدی عددی خودت
+
+# فقط این آیدی‌ها اجازه دارن استفاده کنن
+ALLOWED_USERS = [1942111839]  # ← اینجا آیدی خودتو گذاشتم، بقیه رو هم می‌تونی اضافه کنی
+
 user_messages = {}  # ذخیره پیام‌ها برای ریپلای
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.message.chat_id == ADMIN_ID:
+    if update.message.chat_id not in ALLOWED_USERS:
+        await update.message.reply_text("❌ شما به این بات دسترسی ندارید.")
+        return
+
+    if update.message.chat_id == ALLOWED_USERS[56271843180,680132542,5959049408]:
         await update.message.reply_text("✅ حالت مدیری فعال شد. منتظر پیام‌ها باش.")
     else:
         await update.message.reply_text(
@@ -18,7 +25,11 @@ async def handle_user_message(update: Update, context: ContextTypes.DEFAULT_TYPE
     user_id = update.message.chat_id
     message_text = update.message.text
 
-    if user_id == ADMIN_ID:
+    if user_id not in ALLOWED_USERS:
+        await update.message.reply_text("❌ شما به این بات دسترسی ندارید.")
+        return
+
+    if user_id == ALLOWED_USERS[0]:
         if update.message.reply_to_message:
             original_msg: Message = update.message.reply_to_message
             forwarded_user_id = None
@@ -36,7 +47,7 @@ async def handle_user_message(update: Update, context: ContextTypes.DEFAULT_TYPE
         return
 
     if message_text.startswith('@') and len(message_text.split()) > 1:
-        sent = await context.bot.send_message(chat_id=ADMIN_ID, text=f"📥 از {user_id}:\n{message_text}")
+        sent = await context.bot.send_message(chat_id=ALLOWED_USERS[0], text=f"📥 از {user_id}:\n{message_text}")
         user_messages[user_id] = sent.message_id
 
         await update.message.reply_text(
